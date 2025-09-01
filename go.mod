@@ -1,3 +1,3 @@
-module github.com/go-stdx/trash
+module github.com/xtdlib/go-trash
 
 go 1.24
