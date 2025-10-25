@@ -136,26 +136,26 @@ func generateTrashName(baseName string) string {
 
 func generateTrashNameInDir(baseName string, trashDir string) string {
 	baseName = sanitizeFilename(baseName)
-	
+
 	for i := 0; i < 100; i++ {
 		name := baseName
 		if i > 0 {
-			name = fmt.Sprintf("%s.%d", baseName, i)
+			name = fmt.Sprintf("%s_%d", baseName, i)
 		}
-		
+
 		filesPath := filepath.Join(trashDir, "files", name)
 		infoPath := filepath.Join(trashDir, "info", name+".trashinfo")
-		
+
 		if _, err := os.Lstat(filesPath); os.IsNotExist(err) {
 			if _, err := os.Lstat(infoPath); os.IsNotExist(err) {
 				return name
 			}
 		}
 	}
-	
+
 	randomBytes := make([]byte, 8)
 	rand.Read(randomBytes)
-	return fmt.Sprintf("%s.%s", baseName, hex.EncodeToString(randomBytes))
+	return fmt.Sprintf("%s_%s", baseName, hex.EncodeToString(randomBytes))
 }
 
 func sanitizeFilename(name string) string {
